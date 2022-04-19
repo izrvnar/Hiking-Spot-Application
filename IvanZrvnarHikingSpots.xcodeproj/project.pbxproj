@@ -13,6 +13,7 @@
 		90A15D9F280E313600AD892E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90A15D9D280E313600AD892E /* Main.storyboard */; };
 		90A15DA1280E313A00AD892E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90A15DA0280E313A00AD892E /* Assets.xcassets */; };
 		90A15DA4280E313A00AD892E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90A15DA2280E313A00AD892E /* LaunchScreen.storyboard */; };
+		90A15DAD280E33FC00AD892E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A15DAC280E33FC00AD892E /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		90A15DA0280E313A00AD892E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		90A15DA3280E313A00AD892E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		90A15DA5280E313A00AD892E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		90A15DAC280E33FC00AD892E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +58,40 @@
 		90A15D96280E313600AD892E /* IvanZrvnarHikingSpots */ = {
 			isa = PBXGroup;
 			children = (
+				90A15DAF280E340B00AD892E /* Storyboards */,
+				90A15DAE280E340300AD892E /* Models */,
+				90A15DAB280E33D500AD892E /* Controllers */,
 				90A15D97280E313600AD892E /* AppDelegate.swift */,
 				90A15D99280E313600AD892E /* SceneDelegate.swift */,
-				90A15D9B280E313600AD892E /* ViewController.swift */,
-				90A15D9D280E313600AD892E /* Main.storyboard */,
 				90A15DA0280E313A00AD892E /* Assets.xcassets */,
 				90A15DA2280E313A00AD892E /* LaunchScreen.storyboard */,
 				90A15DA5280E313A00AD892E /* Info.plist */,
 			);
 			path = IvanZrvnarHikingSpots;
+			sourceTree = "<group>";
+		};
+		90A15DAB280E33D500AD892E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				90A15D9B280E313600AD892E /* ViewController.swift */,
+				90A15DAC280E33FC00AD892E /* DetailViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		90A15DAE280E340300AD892E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		90A15DAF280E340B00AD892E /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				90A15D9D280E313600AD892E /* Main.storyboard */,
+			);
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,6 +168,7 @@
 				90A15D9C280E313600AD892E /* ViewController.swift in Sources */,
 				90A15D98280E313600AD892E /* AppDelegate.swift in Sources */,
 				90A15D9A280E313600AD892E /* SceneDelegate.swift in Sources */,
+				90A15DAD280E33FC00AD892E /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
