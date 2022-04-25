@@ -14,6 +14,8 @@
 		90A15DA1280E313A00AD892E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90A15DA0280E313A00AD892E /* Assets.xcassets */; };
 		90A15DA4280E313A00AD892E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90A15DA2280E313A00AD892E /* LaunchScreen.storyboard */; };
 		90A15DAD280E33FC00AD892E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A15DAC280E33FC00AD892E /* DetailViewController.swift */; };
+		90FFCF7128171BE800CBD017 /* HikingSpotCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FFCF7028171BE800CBD017 /* HikingSpotCell.swift */; };
+		90FFCF7328171C7D00CBD017 /* HikingSpot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FFCF7228171C7D00CBD017 /* HikingSpot.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		90A15DA3280E313A00AD892E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		90A15DA5280E313A00AD892E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		90A15DAC280E33FC00AD892E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		90FFCF7028171BE800CBD017 /* HikingSpotCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HikingSpotCell.swift; sourceTree = "<group>"; };
+		90FFCF7228171C7D00CBD017 /* HikingSpot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HikingSpot.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +86,8 @@
 		90A15DAE280E340300AD892E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				90FFCF7028171BE800CBD017 /* HikingSpotCell.swift */,
+				90FFCF7228171C7D00CBD017 /* HikingSpot.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -167,6 +173,8 @@
 			files = (
 				90A15D9C280E313600AD892E /* ViewController.swift in Sources */,
 				90A15D98280E313600AD892E /* AppDelegate.swift in Sources */,
+				90FFCF7128171BE800CBD017 /* HikingSpotCell.swift in Sources */,
+				90FFCF7328171C7D00CBD017 /* HikingSpot.swift in Sources */,
 				90A15D9A280E313600AD892E /* SceneDelegate.swift in Sources */,
 				90A15DAD280E33FC00AD892E /* DetailViewController.swift in Sources */,
 			);
