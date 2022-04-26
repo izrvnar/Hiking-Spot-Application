@@ -14,7 +14,7 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var cameraImage: UIImageView!
     @IBAction func saveButton(_ sender: UIButton) {
-
+        save()
         
     }
     
