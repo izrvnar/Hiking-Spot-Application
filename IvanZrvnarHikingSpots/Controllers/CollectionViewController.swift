@@ -25,13 +25,17 @@ class CollectionViewController: UICollectionViewController, UINavigationControll
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! HikingSpotCell
         cell.dateLabel.text = self.df.string(from: spot.dateLabel)
+        cell.contentView.isUserInteractionEnabled = false
         
         // fetching image
-        if let hikingImage = spot.image{
-            cell.imageView.image = self.hikingSpots.fetchImage(withIdentifier: hikingImage)
+       if let hikingImage = spot.image{
+           cell.imageView.image = self.hikingSpots.fetchImage(withIdentifier: hikingImage)
         }
+        
         return cell
     }
+    let itemsPerRow: CGFloat = 2
+    let interItemSpacing: CGFloat = 1
    
 
     
@@ -45,31 +49,48 @@ class CollectionViewController: UICollectionViewController, UINavigationControll
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        //self.collectionView!.register(HikingSpotCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
         hikingSpots.loadSpot()
         createSnapShot(for: hikingSpots.allHikingSpots)
         
-        func viewDidAppear(_ animated: Bool) {
-            super.viewDidAppear(animated)
-            updateSnapShot(for: hikingSpots.allHikingSpots)
-        }
-        
+
 
         
         // Do any additional setup after loading the view.
         
     }//: View did load
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        updateSnapShot(for: hikingSpots.allHikingSpots)
     }
-    */
+    
+    
+    
+
+    
+     //MARK: - Navigation
+
+     //In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//         Get the new view controller using [segue destinationViewController].
+        guard let destinationVC = segue.destination as? DetailViewController else {return}
+        destinationVC.hikingSpotStore = hikingSpots
+        
+        if segue.identifier == "add"{
+            // create a new spot
+        } else if segue.identifier == "edit"{
+            
+            guard let selectedIndexPath = collectionView.indexPathsForSelectedItems?[0] else {return}
+        
+            let spot = hikingSpots.allHikingSpots[selectedIndexPath.item]
+            destinationVC.hikingSpot = spot
+           
+        }
+//         Pass the selected object to the new view controller.
+    }
+
 
     
 
@@ -94,11 +115,45 @@ class CollectionViewController: UICollectionViewController, UINavigationControll
         snapshot.reloadItems(spots)
         dataSource.apply(snapshot, animatingDifferences: true)
     }
+    
+    
+    // adding proper spacing to collectionview image 
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat{
+        return interItemSpacing
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return interItemSpacing
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let phoneWidth = view.safeAreaLayoutGuide.layoutFrame.width
+        let totalSpacing = itemsPerRow * interItemSpacing
+        
+        let itemWidth = (phoneWidth - totalSpacing) / itemsPerRow
 
+        //keeps aspect ratio for height
+        return CGSize(width: itemWidth, height: itemWidth * 3 / 2)
+    }
+    
+//    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        performSegue(withIdentifier: "edit", sender: nil)
+//
+//
+//    }
+    
+    
+ 
 
 
 }//: Collection View Controller
 
 //MARK: -Extensions
+
+extension CollectionViewController: UICollectionViewDelegateFlowLayout{
+    
+}
+
 
 

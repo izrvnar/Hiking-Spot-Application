@@ -14,5 +14,13 @@ class HikingSpotCell: UICollectionViewCell{
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var dateLabel: UILabel!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+    
+    
+
+    
     
 }

@@ -16,6 +16,13 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var cameraImage: UIImageView!
     
+    //MARK: - Properties
+    var locationManager = CLLocationManager()
+    var currentLocation: CLLocation!
+    var hikingSpot : HikingSpot!
+    var hikingSpotStore : HikingSpotStore?
+    var date = Date()
+    
     //MARK: - Actions
     @IBAction func saveButton(_ sender: UIButton) {
     // ensuring valid park province and details
@@ -39,20 +46,20 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
             passedItem.park = park
             passedItem.province = province
             passedItem.details = details
-            passedItem.dateLabel = date
+            passedItem.dateLabel = date         
             
             //update the image
             if let image = cameraImage.image{
                 if let hikingImage = passedItem.image{
-                    hikingSpotStore.saveImage(image: image, withIdentifier: hikingImage)
+                    hikingSpotStore?.saveImage(image: image, withIdentifier: hikingImage)
                 } else{
                     let hikingImage = UUID().uuidString
                     passedItem.image = hikingImage
-                    hikingSpotStore.saveImage(image: image, withIdentifier: hikingImage)
+                    hikingSpotStore?.saveImage(image: image, withIdentifier: hikingImage)
                 }
             }
             
-            hikingSpotStore.saveSpot()
+            hikingSpotStore?.saveSpot()
         } else {
             // creating a new hiking spot
             let newSpot = HikingSpot(image: nil, dateLabel: date, park: park, province: province, details: details)
@@ -60,22 +67,18 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
             if let image = cameraImage.image{
                 let hikingImage = UUID().uuidString
                 newSpot.image = hikingImage
-                hikingSpotStore.saveImage(image: image, withIdentifier: hikingImage)
+                hikingSpotStore?.saveImage(image: image, withIdentifier: hikingImage)
             }
             
-            hikingSpotStore.addHikingSpot(spot: newSpot)
+            hikingSpotStore?.addHikingSpot(spot: newSpot)
+          
         }
         
         navigationController?.popViewController(animated: true)
     }
     
     
-    //MARK: - Properties
-    var locationManager = CLLocationManager()
-    var currentLocation: CLLocation!
-    var hikingSpot : HikingSpot!
-    var hikingSpotStore : HikingSpotStore!
-    var date = Date()
+
     
     
     
@@ -86,6 +89,7 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
             parkText.text = passedItem.park
             provinceText.text = passedItem.province
             detailsText.text = passedItem.details
+
             
             
         }
@@ -162,11 +166,6 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
         
         navigationController?.dismiss(animated: true)
 
-    }
-    
-    func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
     }
     
     func showErrorAlert(withMessage message: String){
