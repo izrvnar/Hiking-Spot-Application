@@ -144,7 +144,10 @@
                     <navigationItem key="navigationItem" title="Fav Trail" leftItemsSupplementBackButton="YES" id="1FO-qr-UWO"/>
                     <connections>
                         <outlet property="cameraImage" destination="2vx-a7-jd2" id="Dha-GL-JXk"/>
+                        <outlet property="detailsText" destination="6jb-2s-PWw" id="wlG-2h-kxv"/>
                         <outlet property="mapView" destination="qFg-fE-1cu" id="Zsu-Yl-Qau"/>
+                        <outlet property="parkText" destination="xpI-Fk-57s" id="YZs-cQ-C21"/>
+                        <outlet property="provinceText" destination="8NK-Nb-cpj" id="N0k-RI-w33"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gwZ-Ae-6SX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -160,19 +163,37 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="tG2-mR-4q9">
-                            <size key="itemSize" width="128" height="128"/>
+                            <size key="itemSize" width="193" height="312"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="dMZ-rj-cxB">
-                                <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="dMZ-rj-cxB" customClass="HikingSpotCell" customModule="IvanZrvnarHikingSpots" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="193" height="312"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="YX0-LV-VRI">
-                                    <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="YX0-LV-VRI" customClass="HikingSpotCell" customModule="IvanZrvnarHikingSpots" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="193" height="312"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NjE-5V-6Sh">
+                                            <rect key="frame" x="8" y="8" width="185" height="304"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J9I-6a-JBP">
+                                            <rect key="frame" x="8" y="27" width="185" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </collectionViewCellContentView>
+                                <size key="customSize" width="193" height="312"/>
+                                <connections>
+                                    <outlet property="dateLabel" destination="J9I-6a-JBP" id="8ua-Nm-qYm"/>
+                                    <outlet property="imageView" destination="NjE-5V-6Sh" id="Inp-jt-iIj"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -181,7 +202,7 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Favourite Hiking Spots" id="dgf-Qz-HXB">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="iME-Wn-XGs">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="figure.walk" catalog="system" id="iME-Wn-XGs">
                             <connections>
                                 <segue destination="srX-Gm-RtS" kind="show" id="zfT-qu-fHD"/>
                             </connections>
@@ -213,6 +234,7 @@
     </scenes>
     <resources>
         <image name="camera" catalog="system" width="128" height="94"/>
+        <image name="figure.walk" catalog="system" width="95" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

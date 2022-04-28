@@ -10,24 +10,89 @@ import MapKit
 
 class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     //MARK: - Outlets
-    
+    @IBOutlet var parkText: UITextField!
+    @IBOutlet var detailsText: UITextField!
+    @IBOutlet var provinceText: UITextField!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var cameraImage: UIImageView!
+    
+    //MARK: - Actions
     @IBAction func saveButton(_ sender: UIButton) {
-        save()
+    // ensuring valid park province and details
         
+        guard let park = parkText.text, !park.isEmpty else{
+            showErrorAlert(withMessage: "Please Enter a Park Name")
+            return
+        }
+        
+        guard let province = provinceText.text, !province.isEmpty else {
+            showErrorAlert(withMessage: "Please enter a Province")
+            return
+        }
+        
+        guard let details = detailsText.text, !details.isEmpty else{
+            showErrorAlert(withMessage: "Please Enter Details ")
+            return
+        }
+        
+        if let passedItem = hikingSpot{
+            passedItem.park = park
+            passedItem.province = province
+            passedItem.details = details
+            passedItem.dateLabel = date
+            
+            //update the image
+            if let image = cameraImage.image{
+                if let hikingImage = passedItem.image{
+                    hikingSpotStore.saveImage(image: image, withIdentifier: hikingImage)
+                } else{
+                    let hikingImage = UUID().uuidString
+                    passedItem.image = hikingImage
+                    hikingSpotStore.saveImage(image: image, withIdentifier: hikingImage)
+                }
+            }
+            
+            hikingSpotStore.saveSpot()
+        } else {
+            // creating a new hiking spot
+            let newSpot = HikingSpot(image: nil, dateLabel: date, park: park, province: province, details: details)
+            
+            if let image = cameraImage.image{
+                let hikingImage = UUID().uuidString
+                newSpot.image = hikingImage
+                hikingSpotStore.saveImage(image: image, withIdentifier: hikingImage)
+            }
+            
+            hikingSpotStore.addHikingSpot(spot: newSpot)
+        }
+        
+        navigationController?.popViewController(animated: true)
     }
     
     
     //MARK: - Properties
     var locationManager = CLLocationManager()
     var currentLocation: CLLocation!
-    var hikingSpot = [HikingSpot]()
+    var hikingSpot : HikingSpot!
+    var hikingSpotStore : HikingSpotStore!
+    var date = Date()
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let passedItem = hikingSpot{
+            parkText.text = passedItem.park
+            provinceText.text = passedItem.province
+            detailsText.text = passedItem.details
+            
+            
+        }
+        
+        
+        
+        
         // loading the current location of the user
         locationManager.delegate = self
         mapView.delegate = self
@@ -69,43 +134,49 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
         } else {
             print("Failed to save hikingSpot.")
         }
+        
     }
     
     
     
     // getting acsess to the camera on the double tap 
     @objc func cameraDoubleTapped() {
-        let picker = UIImagePickerController()
-        picker.allowsEditing = true
-        picker.delegate = self
-        present(picker, animated: true)
+        let imagePicker = UIImagePickerController()
+        imagePicker.allowsEditing = true
+        
+        imagePicker.delegate = self
+        
+        if UIImagePickerController.isSourceTypeAvailable(.camera){
+            imagePicker.sourceType = .camera
+        } else {
+            imagePicker.sourceType = .photoLibrary
+        }
+        
+        present(imagePicker, animated: true)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let image = info[.editedImage] as? UIImage else {return}
         
-        let imageName = UUID().uuidString
-        let imagePath = getDocumentsDirectory().appendingPathComponent(imageName)
-        if let jpegData = image.jpegData(compressionQuality: 0.8) {
-                try? jpegData.write(to: imagePath)
-            }
-        
-        let currentSpot = HikingSpot(image: imageName, dateLabel: "Current Date")
-        hikingSpot.append(currentSpot)
         cameraImage.image = image
-        save()
         
-        // get rid of image selection
-        dismiss(animated: true)
-        
-        
-        
+        navigationController?.dismiss(animated: true)
+
     }
     
     func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
     }
+    
+    func showErrorAlert(withMessage message: String){
+        let alert = UIAlertController(title: "Missing Information", message: message , preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(alertAction)
+        
+        present(alert, animated: true)
+    }
+    
         
 
 }//: View Controller

@@ -10,7 +10,9 @@ import UIKit
 
 class HikingSpotCell: UICollectionViewCell{
     //MARK: - Outlets
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var dateLabel: UILabel!
+    
+    @IBOutlet var imageView: UIImageView!
+    @IBOutlet var dateLabel: UILabel!
+    
     
 }

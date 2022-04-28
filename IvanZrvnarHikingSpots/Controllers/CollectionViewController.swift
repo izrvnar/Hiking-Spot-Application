@@ -10,9 +10,35 @@ import UIKit
 private let reuseIdentifier = "Cell"
 
 class CollectionViewController: UICollectionViewController, UINavigationControllerDelegate {
+    //MARK: - Properties
+    var hikingSpots = HikingSpotStore()
+    let df: DateFormatter = {
+        let dateFormat = DateFormatter()
+        dateFormat.dateStyle = .long
+        dateFormat.timeStyle = .none
+        dateFormat.doesRelativeDateFormatting = true
+        return dateFormat
+    }()
+    
+    lazy var dataSource = HikingDataSource(collectionView: collectionView){
+        (collectionView: UICollectionView, indexPath: IndexPath, spot: HikingSpot) -> UICollectionViewCell? in
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! HikingSpotCell
+        cell.dateLabel.text = self.df.string(from: spot.dateLabel)
+        
+        // fetching image
+        if let hikingImage = spot.image{
+            cell.imageView.image = self.hikingSpots.fetchImage(withIdentifier: hikingImage)
+        }
+        return cell
+    }
+   
 
+    
+    //MARK: - View did load
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
 
         // Uncomment the following line to preserve selection between presentations
@@ -20,9 +46,20 @@ class CollectionViewController: UICollectionViewController, UINavigationControll
 
         // Register cell classes
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        
+        hikingSpots.loadSpot()
+        createSnapShot(for: hikingSpots.allHikingSpots)
+        
+        func viewDidAppear(_ animated: Bool) {
+            super.viewDidAppear(animated)
+            updateSnapShot(for: hikingSpots.allHikingSpots)
+        }
+        
 
+        
         // Do any additional setup after loading the view.
-    }
+        
+    }//: View did load
 
     /*
     // MARK: - Navigation
@@ -34,56 +71,34 @@ class CollectionViewController: UICollectionViewController, UINavigationControll
     }
     */
 
-    // MARK: UICollectionViewDataSource
-
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return 0
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
     
-        // Configure the cell
+
     
-        return cell
+        // MARK: - Methods
+
+// load initalSnapshot
+    func createSnapShot(for savedItems: [HikingSpot]){
+        var snapshot = NSDiffableDataSourceSnapshot<Section, HikingSpot>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(savedItems, toSection: .main)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
     
+    // update Snapshot
+    
+    func updateSnapShot(for spots: [HikingSpot]){
+        var snapshot = NSDiffableDataSourceSnapshot<Section, HikingSpot>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(spots, toSection: .main)
+        
+        snapshot.reloadItems(spots)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
-    */
 
-}
+
+
+}//: Collection View Controller
+
+//MARK: -Extensions
+
+

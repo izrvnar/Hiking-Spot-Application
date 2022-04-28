@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		90A15D98280E313600AD892E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A15D97280E313600AD892E /* AppDelegate.swift */; };
 		90A15D9A280E313600AD892E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A15D99280E313600AD892E /* SceneDelegate.swift */; };
-		90A15D9C280E313600AD892E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A15D9B280E313600AD892E /* ViewController.swift */; };
 		90A15D9F280E313600AD892E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90A15D9D280E313600AD892E /* Main.storyboard */; };
 		90A15DA1280E313A00AD892E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90A15DA0280E313A00AD892E /* Assets.xcassets */; };
 		90A15DA4280E313A00AD892E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90A15DA2280E313A00AD892E /* LaunchScreen.storyboard */; };
@@ -17,13 +16,14 @@
 		90FFCF7128171BE800CBD017 /* HikingSpotCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FFCF7028171BE800CBD017 /* HikingSpotCell.swift */; };
 		90FFCF7328171C7D00CBD017 /* HikingSpot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FFCF7228171C7D00CBD017 /* HikingSpot.swift */; };
 		90FFCF7528185A2800CBD017 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FFCF7428185A2800CBD017 /* CollectionViewController.swift */; };
+		90FFCF77281898D100CBD017 /* HikingSpotStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FFCF76281898D100CBD017 /* HikingSpotStore.swift */; };
+		90FFCF7B281A07C900CBD017 /* HikingDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FFCF7A281A07C900CBD017 /* HikingDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		90A15D94280E313600AD892E /* IvanZrvnarHikingSpots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IvanZrvnarHikingSpots.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90A15D97280E313600AD892E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		90A15D99280E313600AD892E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		90A15D9B280E313600AD892E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		90A15D9E280E313600AD892E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		90A15DA0280E313A00AD892E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		90A15DA3280E313A00AD892E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -32,6 +32,8 @@
 		90FFCF7028171BE800CBD017 /* HikingSpotCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HikingSpotCell.swift; sourceTree = "<group>"; };
 		90FFCF7228171C7D00CBD017 /* HikingSpot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HikingSpot.swift; sourceTree = "<group>"; };
 		90FFCF7428185A2800CBD017 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		90FFCF76281898D100CBD017 /* HikingSpotStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HikingSpotStore.swift; sourceTree = "<group>"; };
+		90FFCF7A281A07C900CBD017 /* HikingDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HikingDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 		90A15D96280E313600AD892E /* IvanZrvnarHikingSpots */ = {
 			isa = PBXGroup;
 			children = (
+				90FFCF79281A07A300CBD017 /* HikingSpotDataSource */,
 				90A15DAF280E340B00AD892E /* Storyboards */,
 				90A15DAE280E340300AD892E /* Models */,
 				90A15DAB280E33D500AD892E /* Controllers */,
@@ -79,7 +82,6 @@
 		90A15DAB280E33D500AD892E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				90A15D9B280E313600AD892E /* ViewController.swift */,
 				90A15DAC280E33FC00AD892E /* DetailViewController.swift */,
 				90FFCF7428185A2800CBD017 /* CollectionViewController.swift */,
 			);
@@ -91,6 +93,7 @@
 			children = (
 				90FFCF7028171BE800CBD017 /* HikingSpotCell.swift */,
 				90FFCF7228171C7D00CBD017 /* HikingSpot.swift */,
+				90FFCF76281898D100CBD017 /* HikingSpotStore.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -101,6 +104,14 @@
 				90A15D9D280E313600AD892E /* Main.storyboard */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		90FFCF79281A07A300CBD017 /* HikingSpotDataSource */ = {
+			isa = PBXGroup;
+			children = (
+				90FFCF7A281A07C900CBD017 /* HikingDataSource.swift */,
+			);
+			path = HikingSpotDataSource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,12 +185,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90A15D9C280E313600AD892E /* ViewController.swift in Sources */,
 				90A15D98280E313600AD892E /* AppDelegate.swift in Sources */,
 				90FFCF7128171BE800CBD017 /* HikingSpotCell.swift in Sources */,
+				90FFCF77281898D100CBD017 /* HikingSpotStore.swift in Sources */,
 				90FFCF7328171C7D00CBD017 /* HikingSpot.swift in Sources */,
 				90FFCF7528185A2800CBD017 /* CollectionViewController.swift in Sources */,
 				90A15D9A280E313600AD892E /* SceneDelegate.swift in Sources */,
+				90FFCF7B281A07C900CBD017 /* HikingDataSource.swift in Sources */,
 				90A15DAD280E33FC00AD892E /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
