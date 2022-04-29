@@ -89,7 +89,7 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
             parkText.text = passedItem.park
             provinceText.text = passedItem.province
             detailsText.text = passedItem.details
-
+        
             
             
         }
@@ -107,7 +107,12 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
         // using the satilite
         mapView.showsUserLocation = true
         mapView.mapType = .satellite
+        // added rounded corner to mapview
+        mapView.layer.cornerRadius = 8
+        mapView.clipsToBounds = true
         
+    
+        // getting user location
         guard CLLocationManager.locationServicesEnabled() else { return }
         
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
@@ -117,6 +122,7 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
         }else {
             locationManager.stopUpdatingLocation()
         }
+    
         
         // creating double tap gesture to open the camera
         let doubleTap = UITapGestureRecognizer(target: self, action: #selector(cameraDoubleTapped))
@@ -128,7 +134,6 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
     }//: View did load
     
     //MARK: -Methods
-    
     // save method with a JSON encoder
     func save() {
         let jsonEncoder = JSONEncoder()
@@ -167,7 +172,7 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
         navigationController?.dismiss(animated: true)
 
     }
-    
+    // show alert for missing info
     func showErrorAlert(withMessage message: String){
         let alert = UIAlertController(title: "Missing Information", message: message , preferredStyle: .alert)
         let alertAction = UIAlertAction(title: "OK", style: .default)
@@ -181,6 +186,8 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
 }//: View Controller
 
 //MARK: - Extensions
+
+
 
 
 

@@ -20,11 +20,15 @@ class CollectionViewController: UICollectionViewController, UINavigationControll
         return dateFormat
     }()
     
+    //MARK: - Data Source
+    
     lazy var dataSource = HikingDataSource(collectionView: collectionView){
         (collectionView: UICollectionView, indexPath: IndexPath, spot: HikingSpot) -> UICollectionViewCell? in
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! HikingSpotCell
-        cell.dateLabel.text = self.df.string(from: spot.dateLabel)
+        cell.dateLabel.text = (self.df.string(from: spot.dateLabel))
+        cell.dateLabel.layer.cornerRadius = 4
+        cell.dateLabel.clipsToBounds = true
         cell.contentView.isUserInteractionEnabled = false
         
         // fetching image
@@ -51,8 +55,11 @@ class CollectionViewController: UICollectionViewController, UINavigationControll
         // Register cell classes
         //self.collectionView!.register(HikingSpotCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
+        // loading hiking spots
         hikingSpots.loadSpot()
+        // creating a new snapshot
         createSnapShot(for: hikingSpots.allHikingSpots)
+        
         
 
 
