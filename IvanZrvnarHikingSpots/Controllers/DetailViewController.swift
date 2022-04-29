@@ -89,10 +89,19 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
             parkText.text = passedItem.park
             provinceText.text = passedItem.province
             detailsText.text = passedItem.details
+            // passed item
+            if let imageString = passedItem.image {
+            cameraImage.image  = hikingSpotStore?.fetchImage(withIdentifier: imageString)
+            }
+            }
+            
+            
+
+            
         
             
             
-        }
+        
         
         
         
@@ -180,7 +189,7 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
         
         present(alert, animated: true)
     }
-    
+
         
 
 }//: View Controller
