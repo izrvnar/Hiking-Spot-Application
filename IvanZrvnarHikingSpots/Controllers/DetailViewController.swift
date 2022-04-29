@@ -15,6 +15,7 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
     @IBOutlet var provinceText: UITextField!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var cameraImage: UIImageView!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     //MARK: - Properties
     var locationManager = CLLocationManager()
@@ -81,7 +82,7 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
 
     
     
-    
+    //MARK: - View did load
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -94,6 +95,11 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
             cameraImage.image  = hikingSpotStore?.fetchImage(withIdentifier: imageString)
             }
             }
+        
+        // setting the keyboard to dismiss and adjust depending on contentet selected
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
             
             
 
@@ -188,6 +194,31 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
         alert.addAction(alertAction)
         
         present(alert, animated: true)
+    }
+    
+    // adjust keyboard method
+    @objc func adjustForKeyboard(notification: Notification){
+        //get the user info key to retrieve the keyboard’s frame at the end of its animation.
+        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        
+        //get the rectangular representation of the keyboard frame
+        let keyboardScreenEndFrame = keyboardValue.cgRectValue
+        //this will match the keyboard frame the view's co-ordinate system - this will handle the situation where the use is in landscape
+        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
+        
+        //remember this is being called when two conditions are observed.  If this is a situation where the keyboard is hidingand appearing - first if it is hiding
+        if notification.name == UIResponder.keyboardWillHideNotification{
+            //set the inset back to nothing
+            scrollView.contentInset = .zero
+        } else {
+            //set the inset to the height of the keyboard - minus the bottom safe area value
+            scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height - view.safeAreaInsets.bottom, right: 0)
+        }
+        
+        //without this, the scroll indicator will disappear under the keyboard
+        scrollView.scrollIndicatorInsets = scrollView.contentInset
+        
+        
     }
 
         

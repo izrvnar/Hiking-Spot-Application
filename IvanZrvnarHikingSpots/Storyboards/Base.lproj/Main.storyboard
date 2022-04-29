@@ -148,6 +148,7 @@
                         <outlet property="mapView" destination="qFg-fE-1cu" id="Zsu-Yl-Qau"/>
                         <outlet property="parkText" destination="xpI-Fk-57s" id="YZs-cQ-C21"/>
                         <outlet property="provinceText" destination="8NK-Nb-cpj" id="N0k-RI-w33"/>
+                        <outlet property="scrollView" destination="kYt-s0-aC7" id="cRg-YY-BES"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gwZ-Ae-6SX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
