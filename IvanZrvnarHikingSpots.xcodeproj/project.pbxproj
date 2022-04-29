@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		356755F4281C215000A4A5B3 /* CustomPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356755F3281C215000A4A5B3 /* CustomPin.swift */; };
 		90A15D98280E313600AD892E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A15D97280E313600AD892E /* AppDelegate.swift */; };
 		90A15D9A280E313600AD892E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A15D99280E313600AD892E /* SceneDelegate.swift */; };
 		90A15D9F280E313600AD892E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90A15D9D280E313600AD892E /* Main.storyboard */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		356755F3281C215000A4A5B3 /* CustomPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPin.swift; sourceTree = "<group>"; };
 		90A15D94280E313600AD892E /* IvanZrvnarHikingSpots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IvanZrvnarHikingSpots.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90A15D97280E313600AD892E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		90A15D99280E313600AD892E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				90FFCF7028171BE800CBD017 /* HikingSpotCell.swift */,
 				90FFCF7228171C7D00CBD017 /* HikingSpot.swift */,
 				90FFCF76281898D100CBD017 /* HikingSpotStore.swift */,
+				356755F3281C215000A4A5B3 /* CustomPin.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 				90FFCF7328171C7D00CBD017 /* HikingSpot.swift in Sources */,
 				90FFCF7528185A2800CBD017 /* CollectionViewController.swift in Sources */,
 				90A15D9A280E313600AD892E /* SceneDelegate.swift in Sources */,
+				356755F4281C215000A4A5B3 /* CustomPin.swift in Sources */,
 				90FFCF7B281A07C900CBD017 /* HikingDataSource.swift in Sources */,
 				90A15DAD280E33FC00AD892E /* DetailViewController.swift in Sources */,
 			);

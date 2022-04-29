@@ -8,7 +8,7 @@
 import UIKit
 import MapKit
 
-class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+class DetailViewController: UIViewController,UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     //MARK: - Outlets
     @IBOutlet var parkText: UITextField!
     @IBOutlet var detailsText: UITextField!
@@ -23,6 +23,8 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
     var hikingSpot : HikingSpot!
     var hikingSpotStore : HikingSpotStore?
     var date = Date()
+    
+
     
     //MARK: - Actions
     @IBAction func saveButton(_ sender: UIButton) {
@@ -103,17 +105,7 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-            
-            
 
-            
-        
-            
-            
-        
-        
-        
-        
         
         // loading the current location of the user
         locationManager.delegate = self
@@ -138,7 +130,7 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
         if locationManager.authorizationStatus == .notDetermined{
             locationManager.requestWhenInUseAuthorization()
         }else {
-            locationManager.stopUpdatingLocation()
+            locationManager.startUpdatingLocation()
         }
     
         
@@ -147,6 +139,7 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
         doubleTap.numberOfTapsRequired = 2
         cameraImage.addGestureRecognizer(doubleTap)
         
+        //createRegion(atLatitude: currentLocation.coordinate.latitude, atLongitude: currentLocation.coordinate.longitude)
     
         
     }//: View did load
@@ -223,6 +216,19 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
         
         
     }
+    
+        func createRegion(atLatitude lat: Double, atLongitude long: Double){
+        let centerPosition = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        let region = MKCoordinateRegion(center: centerPosition, latitudinalMeters: 1_000, longitudinalMeters: 1_000)
+        mapView.setRegion(region, animated: true)
+    }
+    
+     func locateMe(_ sender: Any) {
+       locationManager.requestLocation()
+       createRegion(atLatitude: currentLocation.coordinate.latitude, atLongitude: currentLocation.coordinate.longitude)
+   }
+
+
 
         
 
@@ -237,6 +243,34 @@ extension DetailViewController: UITextFieldDelegate{
         return true
     }
 }
+extension DetailViewController: MKMapViewDelegate{
+    
+}
+extension DetailViewController: CLLocationManagerDelegate{
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        if manager.authorizationStatus != .denied || manager.authorizationStatus != .notDetermined {
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("Updating location....")
+        if let lastLocation = locations.last {
+            currentLocation = lastLocation
+            // getting the map to zoom in on the region
+            
+            createRegion(atLatitude: currentLocation.coordinate.latitude, atLongitude: currentLocation.coordinate.longitude)
+            let annotation = CustomPin(coordinate: CLLocationCoordinate2D(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude))
+            mapView.addAnnotation(annotation)
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Failed to get location - \(error.localizedDescription)")
+    }
+    
+}
+
     
 
 
