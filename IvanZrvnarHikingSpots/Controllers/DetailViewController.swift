@@ -30,16 +30,19 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
         
         guard let park = parkText.text, !park.isEmpty else{
             showErrorAlert(withMessage: "Please Enter a Park Name")
+           
             return
         }
         
         guard let province = provinceText.text, !province.isEmpty else {
             showErrorAlert(withMessage: "Please enter a Province")
+           
             return
         }
         
         guard let details = detailsText.text, !details.isEmpty else{
             showErrorAlert(withMessage: "Please Enter Details ")
+            
             return
         }
         
@@ -226,6 +229,15 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
 }//: View Controller
 
 //MARK: - Extensions
+extension DetailViewController: UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        parkText.resignFirstResponder()
+        provinceText.resignFirstResponder()
+        detailsText.resignFirstResponder()
+        return true
+    }
+}
+    
 
 
 
